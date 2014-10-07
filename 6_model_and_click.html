@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="YourNameOfModule">
+	<head>
+		<title>AngularJS</title>
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+
+		<script  type="text/javascript">
+		(function(){
+
+			//Your bootstraping
+			var app = angular.module("YourNameOfModule",[])
+
+			//Controllers, notice that controller is attached to (inside) our app.
+			app.controller("BookController", function(){
+			    var self = this;
+			    
+				//Note, no name defined in object
+				this.book = { price: 35};
+
+				this.myList = [
+					{ name: 'C# is the bomb!', price: 42 },
+					{ name: 'AngularJS', price: 10},
+					{ name: 'Xamarin Cross-platform Application Development', price: 199.99},
+					{ name: 'Java is a joke!', price: 10},
+					{ name: 'Learning AngularJS', price: 35.75}
+				];
+
+				this.add = function(){
+					this.myList.push({name:this.book.name,price:this.book.price,canBuy:this.book.canBuy,soldOut:this.book.soldOut});
+				};
+
+				this.edit = function(book){
+					this.book = book;
+				};
+			});
+		})();
+		</script>
+
+		<div ng-controller="BookController as BookCtrl">
+
+			<h2>Form</h2>
+			<input placeholder="Name..." ng-model="BookCtrl.book.name" />
+			<input placeholder="Price..." ng-model="BookCtrl.book.price" />
+			<button ng-click="BookCtrl.add()">Add</button>
+
+			<ul>
+
+				<li ng-repeat="book in BookCtrl.myList" ng-click="BookCtrl.edit(book)">
+				  [{{$index + 1}}] {{book.name}} - {{book.price}}
+				</li>
+
+				<li ng-if="BookCtrl.myList.length == 0">
+				  <strong>No results found...</strong>
+				</li>
+
+			</ul>
+		</div>
+	</body>
+</html>

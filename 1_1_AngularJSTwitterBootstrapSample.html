@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="YourNameOfModule">
+	<head>
+		<title>AngularJS</title>
+
+		<link href="lib/bootstrap.min.css" type="text/css" rel="stylesheet">
+		<style>
+			body {padding: 10px;}
+		</style>
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+		<script src="lib/ui-bootstrap-tpls-0.11.2.js" type="text/javascript"></script>
+
+		<script  type="text/javascript" />
+		(function(){
+			/* 
+			Sources and docs can be found here		
+			http://angular-ui.github.io/bootstrap/
+			*/
+			var YourApp = angular.module("YourNameOfModule",["ui.bootstrap"]);
+		})();
+		</script>
+		
+		
+		<div class="container">
+			<h1>That's how we role!</h1>
+			
+			<pre>{{ singleToggle || 0 }}</pre>
+
+			<button type="button" class="btn btn-primary" ng-model="singleToggle" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+			    Single Toggle
+			</button>
+
+		</div>
+
+	</body>
+</html>

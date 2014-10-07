@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="YourNameOfModule">
+	<head>
+		<title>AngularJS</title>
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+
+		<script  type="text/javascript" />
+		(function(){
+			var app = angular.module("YourNameOfModule",[]);
+
+			app.controller("BookController", function(){
+				this.book = book;
+			});
+
+			var book = { 
+				name: 'First steps in AngularJS', 
+				canShow: false,
+			};
+		})();
+		</script>
+
+		<div ng-controller="BookController as ctrl">
+			<h1>{{ctrl.book.name}}</h1>
+
+			<br/>
+
+			<button ng-hide="ctrl.book.canShow">Is using directive ng-hide</button>
+			
+			<br/>
+
+			<button ng-show="!ctrl.book.canShow">Is using directive ng-show</button>
+			
+			<br/>
+
+			<div ng-if="!ctrl.book.canShow" ng-click="ctrl.book.canShow=true">Shown example of element in ng-if</div>
+
+			<div ng-if="ctrl.book.canShow" ng-click="ctrl.book.canShow=false">Removed sample of element in ng-if</div>
+
+
+		</div>
+	</body>
+</html>

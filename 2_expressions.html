@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="YourNameOfModule">
+	<head>
+		<title>AngularJS</title>
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+
+		<script  type="text/javascript" />
+		(function(){
+			var YourApp = angular.module("YourNameOfModule",[]);
+		})();
+		</script>
+
+		<input ng-model="naam" ng-init="naam='Angular'"/>
+
+		<!-- String Operations -->
+		<p>
+			{{"Hello " + naam}} , this works!!!
+		</p>
+
+		<!-- Numerical Operations -->
+		<p>
+			My age is {{20+6}} Year
+		</p>
+
+		<div ng-bind="naam"></div>
+	</body>
+</html>
