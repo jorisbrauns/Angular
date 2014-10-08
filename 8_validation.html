@@ -23,7 +23,7 @@
 				];
 
 				this.add = function(){
-					this.myList.push({name:this.book.name,price:this.book.price,canBuy:this.book.canBuy,soldOut:this.book.soldOut});
+					this.myList.push({name:this.book.name,price:this.book.price});
 				};
 
 				this.edit = function(book){
@@ -45,14 +45,55 @@
 			    return filtered;
 			  };
 			});
+
+		    //Curstom validation
+			app.directive('ensureUnique', function() {
+			    return {
+			        restrict: 'A',
+			        require: 'ngModel',
+			        link: function (scope, element, attrs, ngModel) {
+			            element.bind('blur', function (e) {
+			                if (!ngModel || !element.val()) return;
+			                var keyProperty = scope.$eval(attrs.ensureUnique);
+			                var currentValue = element.val();
+
+			                var unique = true;
+
+			                for (var i = 0; i < keyProperty.list.length; i++) {
+			                    if (keyProperty.list[i].name == currentValue) {
+			                        unique = false;
+			                    }
+			                }
+			                scope.$apply(function () {
+			                    console.log("apply");
+			                    ngModel.$setValidity('unique', unique);
+			                });
+			            });
+			        }
+			    }
+			});
+ 
 		})();
 		</script>
 
 		<div ng-controller="BookController as ctrl">
+            
 			<h2>Form</h2>
-			<input placeholder="Name..." ng-model="ctrl.book.name" />
-			<input placeholder="Price..." ng-model="ctrl.book.price" />
-			<button ng-click="ctrl.add()">Create new record</button>
+                <form name="form">
+
+	    	<input placeholder="Name..." name="name" ng-model="ctrl.book.name" ensure-unique="{ list:ctrl.myList }" type="text" ng-minlength="5"  ng-maxlength="20" />
+                <span class="errorMessage" ng-show="form.name.$dirty && form.name.$error.unique">
+                    Name already in use
+                </span>
+                
+		<br/>
+		
+		<input placeholder="Price..." ng-model="ctrl.book.price" type="number"  />
+		
+		<br/>
+		
+		<button ng-click="ctrl.add()">Create new record</button>
+            </form>
 
 			<ul>
 				<li ng-repeat="book in ctrl.myList | orderBy:'name'  | filter:{name:search} | startsWithLetter:letter " ng-click="ctrl.edit(book)">
