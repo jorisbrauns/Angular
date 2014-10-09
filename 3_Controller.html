@@ -2,6 +2,7 @@
 <html ng-app="YourNameOfModule">
 	<head>
 		<title>AngularJS</title>
+        <link rel="stylesheet" href="lib/style.css" type="text/css" />
 	</head>
 	<body>
 		<script src="lib/angular.js" type="text/javascript"></script>
@@ -13,18 +14,17 @@
 			var app = angular.module("YourNameOfModule",[]);
 
 			//Controllers, notice that controller is attached to (inside) our app.
-			app.controller("ContactController", function(){
-				this.contact = contact;
+			app.controller("BookController", function(){
+				this.book = book;
 			});
 
-			var contact = { name: 'Joris', lastname: 'Brauns', age: 26 };
+			var book = { name: 'SPA using AngularJS', price: 35 };
 
 		})();
 		</script>
 
-		<div ng-controller="ContactController as ctrl">
-			<h1>{{ctrl.contact.name}} {{ctrl.contact.lastname}}</h1>
-			Age: {{ctrl.contact.age}} 
+		<div ng-controller="BookController as ctrl">
+			<h1>{{ctrl.book.name}} - Price  € {{ctrl.book.price}}</h1>
 		</div>
 	</body>
 </html>

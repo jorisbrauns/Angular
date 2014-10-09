@@ -5,106 +5,56 @@
 	</head>
 	<body>
 		<script src="lib/angular.js" type="text/javascript"></script>
-
 		<style type="text/css">
-		input[type=number],
-		input[type=text] {
-			padding:5px; border:2px solid #ccc; 
-			-webkit-border-radius: 5px;
-			border-radius: 5px;
-		}
-		input[type=text]:focus { border-color:#333; outline: 0; }
-		input[type=submit] {
-			padding:5px 15px; background:#ccc; border:0 none;
-			cursor:pointer;
-			-webkit-border-radius: 5px;
-			border-radius: 5px; 
-		}
+		input { outline: 0; border-radius: 5px; padding:5px; border:2px solid #ccc; -webkit-border-radius: 5px; }
+		input:focus { border-color:#333; }
+		input[type=submit] { padding:5px 15px; background:#ccc; border:0 none; cursor:pointer; }
 		.errorMessage { padding: 0px; margin: 0;  }
-
 
 		/* really specific css rules applied by angular */
 		.ng-valid 		{  }
-		.ng-invalid{
-			border-color: red!important;
-		}
+		.ng-invalid     { border-color: red!important; }
 		.ng-pristine 	{  }
 		.ng-dirty 		{  }
 
 		.ng-invalid-required 		{  }
 		.ng-invalid-minlength 		{  }
 		.ng-valid-max-length 		{  }
-
-
 		</style>
 		<script  type="text/javascript">
-		(function(){
-			var app = angular.module("YourNameOfModule",[])
+		    (function () {
+		        var app = angular.module("YourNameOfModule", [])
 
-			app.controller("BookController", function(){
-			    var self = this;
+		        //Curstom validation
+		        app.directive('ensureUnique', function () {
+		            return {
+		                restrict: 'A',
+		                scope:{ list:'=' },
+		                require: 'ngModel',
+		                controller: function(){
+		                },
+		                link: function (scope, element, attrs, ngModel) {
+		                    element.bind('keyup', function (e) {
+		                        if (!ngModel || !element.val()) return;
+		                        //var keyProperty = scope.$eval(attrs.ensureUnique);
+		                        var currentValue = element.val();
+		                        var unique = true;
+		                        for (var i = 0; i < scope.list.length; i++) {
+		                            if (scope.list[i].name.toLowerCase() == currentValue.toLowerCase()) {
+		                                unique = false;
+		                                break;
+		                            }
+		                        }
+		                        scope.$apply(function () {
+		                            ngModel.$setValidity('unique', unique);
+		                        });
+		                        return;
+		                    });
+		                }
+		            }
+		        });
 
-				this.myList = [
-					{ name: 'C# is the bomb!', price: 42 },
-					{ name: 'AngularJS', price: 10},
-					{ name: 'Xamarin Cross-platform Application Development', price: 199.99},
-					{ name: 'Java is a joke!', price: 10},
-					{ name: 'Learning AngularJS', price: 35.75}
-				];
-
-				this.add = function(isValid){
-					if (isValid) {
-						this.myList.push(
-							{ 
-								name:this.book.name,
-								price:this.book.price
-							}
-						);
-					}
-				};
-			});
-
-			//custom filter
-			app.filter('startsWithLetter', function () {
-			  return function (items, letter) {
-			    var filtered = [];
-			    var letterMatch = new RegExp(letter, 'i');
-			    for (var i = 0; i < items.length; i++) {
-			      var item = items[i];
-			      if (letterMatch.test(item.name.substring(0, 1))) {
-			        filtered.push(item);
-			      }
-			    }
-			    return filtered;
-			  };
-			});
-
-		    //Curstom validation
-			app.directive('ensureUnique', function() {
-			    return {
-			        restrict: 'A',
-			        require: 'ngModel',
-			        link: function (scope, element, attrs, ngModel) {
-			            element.bind('change', function (e) {
-			                if (!ngModel || !element.val()) return;
-			                var keyProperty = scope.$eval(attrs.ensureUnique);
-			                var currentValue = element.val();
-			                var unique = true;
-
-			                for (var i = 0; i < keyProperty.list.length; i++) {
-			                    if (keyProperty.list[i].name == currentValue) {
-			                        unique = false;
-			                    }
-			                }
-			                scope.$apply(function () {
-			                    ngModel.$setValidity('unique', unique);
-			                });
-			            });
-			        }
-			    }
-			});
- 
-		})();
+		    })();
 		</script>
 
 		<div ng-controller="BookController as ctrl">
@@ -112,7 +62,7 @@
 			<h2>Form</h2>
 			<form name="form" novalidate>
 
-				<input placeholder="Name..." name="name" ng-model="ctrl.book.name" ensure-unique="{ list:ctrl.myList }" type="text" ng-minlength="5"  ng-maxlength="20" />
+				<input placeholder="Name..." name="name" ng-model="ctrl.book.name" list="ctrl.myList" ensure-unique type="text" ng-minlength="5"  ng-maxlength="20" />
 				<p class="errorMessage" ng-show="form.name.$error.unique">Name already in use</p>
 		      	<p class="errorMessage" ng-show="form.name.$error.minlength">Name is too short.</p>
         		<p class="errorMessage" ng-show="form.name.$error.maxlength">Name is too long.</p>
@@ -124,7 +74,7 @@
 
 				<br/>
 
-				<input ng-click="ctrl.add(form.$valid)" type="submit" ng-disabled="form.$invalid" value="Create new record" >
+				<input ng-click="ctrl.add(form.$valid)" type="submit" ng-disabled="form.$invalid || form.$pristine" value="Create new record" >
 
             </form>
 
@@ -141,5 +91,8 @@
 			<label>Search: </label> <input type="text" placeholder="Search..." ng-model="search" /><br/>
 			<label>Start with letter: </label> <input type="text" placeholder="Letter" ng-model="letter" /> (custom filter)
 		</div>
+        
+        <script src="lib/custom-controller.js" type="text/javascript"></script>
+        <script src="lib/custom-filter.js" type="text/javascript"></script>
 	</body>
 </html>

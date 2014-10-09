@@ -1,0 +1,32 @@
+ 
+	<h2>Form</h2>
+	<form name="form" novalidate>
+
+		<input placeholder="Name..." name="name" ng-model="ctrl.book.name" list="ctrl.myList" ensure-unique type="text" ng-minlength="5"  ng-maxlength="20" />
+		<p class="errorMessage" ng-show="form.name.$error.unique">Name already in use</p>
+		<p class="errorMessage" ng-show="form.name.$error.minlength">Name is too short.</p>
+        <p class="errorMessage" ng-show="form.name.$error.maxlength">Name is too long.</p>
+   
+		<br/>
+
+		<input placeholder="Price..." name="price" ng-model="ctrl.book.price" type="number"  />
+        <p class="errorMessage" ng-show="form.price.$error.number">Price is not a number.</p>
+
+		<br/>
+
+		<input ng-click="ctrl.add(form.$valid)" type="submit" ng-disabled="form.$invalid || form.$pristine" value="Create new record" >
+
+    </form>
+
+	<ul>
+		<li ng-repeat="book in ctrl.myList | orderBy:'name'  | filter:{name:search} | startsWithLetter:letter ">
+			{{book.name}} - {{book.price | currency}} 
+		</li>
+		<li ng-if="ctrl.myList.length == 0">
+			<strong>No results found...</strong>
+		</li>
+	</ul>
+			
+	<h2>Filters</h2>
+	<label>Search: </label> <input type="text" placeholder="Search..." ng-model="search" /><br/>
+	<label>Start with letter: </label> <input type="text" placeholder="Letter" ng-model="letter" /> (custom filter)

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="YourNameOfModule">
+	<head>
+		<title>AngularJS</title>
+        <link rel="stylesheet" href="lib/style.css" type="text/css" />
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+        <script src="lib/angular-route.js" type="text/javascript"></script>
+
+		<script  type="text/javascript">
+		    var application = angular.module("YourNameOfModule", ['ngRoute']);
+
+		    application.config(['$routeProvider', function ($routeProvider) {
+                $routeProvider.
+                    when('/route1', {
+                        templateUrl: 'lib/views/book.html',
+                        controller: 'BookController'
+                    })
+                    .when('/route2:id', {
+                        template: function () {
+                            return "{{message}}";
+                        },
+                        controller: 'OtherController'
+                    })
+                    .otherwise({
+                        redirectTo: '/route1'
+                    });
+            }]);
+		</script>
+
+		<div class="container" ng-view></div>
+  
+        <script src="lib/custom-controller.js" type="text/javascript"></script>
+        <script src="lib/custom-validation-directive.js" type="text/javascript"></script>
+        <script src="lib/custom-filter.js" type="text/javascript"></script>
+	</body>
+</html>

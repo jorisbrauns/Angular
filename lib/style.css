@@ -1,0 +1,18 @@
+
+body {padding: 10px;}
+input { outline: 0; border-radius: 5px; padding:5px; border:2px solid #ccc; -webkit-border-radius: 5px; }
+input:focus { border-color:#333; }
+input[type=submit] { padding:5px 15px; background:#ccc; border:0 none; cursor:pointer; }
+.errorMessage { padding: 0px; margin: 0;  }
+
+/* really specific css rules applied by angular */
+.ng-valid 		{  }
+.ng-invalid{
+	border-color: red!important;
+}
+.ng-pristine 	{  }
+.ng-dirty 		{  }
+
+.ng-invalid-required 		{  }
+.ng-invalid-minlength 		{  }
+.ng-valid-max-length 		{  }

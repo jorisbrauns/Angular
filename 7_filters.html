@@ -2,37 +2,16 @@
 <html ng-app="YourNameOfModule">
 	<head>
 		<title>AngularJS</title>
+        <link rel="stylesheet" href="lib/style.css" type="text/css" />
 	</head>
 	<body>
 		<script src="lib/angular.js" type="text/javascript"></script>
 
 		<script  type="text/javascript">
-		(function(){
-			var app = angular.module("YourNameOfModule",[])
-
-			app.controller("BookController", function(){
-			    var self = this;
-				this.book = { price: 35};
-
-				this.myList = [
-					{ name: 'C# is the bomb!', price: 42 },
-					{ name: 'AngularJS', price: 10},
-					{ name: 'Xamarin Cross-platform Application Development', price: 199.99},
-					{ name: 'Java is a joke!', price: 10},
-					{ name: 'Learning AngularJS', price: 35.75}
-				];
-
-				this.add = function(){
-					this.myList.push({name:this.book.name,price:this.book.price,canBuy:this.book.canBuy,soldOut:this.book.soldOut});
-				};
-
-				this.edit = function(book){
-					this.book = book;
-				};
-			});
-
+            var application = angular.module("YourNameOfModule",[])
+            
 			//custom filter
-			app.filter('startsWithLetter', function () {
+            application.filter('startsWithLetter', function () {
 			  return function (items, letter) {
 			    var filtered = [];
 			    var letterMatch = new RegExp(letter, 'i');
@@ -45,17 +24,16 @@
 			    return filtered;
 			  };
 			});
-		})();
 		</script>
 
 		<div ng-controller="BookController as ctrl">
 			<h2>Form</h2>
 			<input placeholder="Name..." ng-model="ctrl.book.name" />
 			<input placeholder="Price..." ng-model="ctrl.book.price" />
-			<button ng-click="ctrl.add()">Create new record</button>
+			<input value="Create new record" type="submit" ng-click="ctrl.add()" />
 
 			<ul>
-				<li ng-repeat="book in ctrl.myList | orderBy:'name'  | filter:{name:search} | startsWithLetter:letter " ng-click="ctrl.edit(book)">
+				<li ng-repeat="book in ctrl.myList | orderBy:'name'  | filter:{name:search} | startsWithLetter:letter " >
 				  {{book.name}} - {{book.price | currency}} 
 				</li>
 				<li ng-if="ctrl.myList.length == 0">
@@ -67,5 +45,7 @@
 			<label>Search: </label> <input placeholder="Search..." ng-model="search" /><br/>
 			<label>Start with letter: </label> <input placeholder="Letter" ng-model="letter" /> (custom filter)
 		</div>
+
+        <script src="lib/custom-controller.js" type="text/javascript"></script>
 	</body>
 </html>
