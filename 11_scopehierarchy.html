@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="ScopeExample">
+	<head>
+		<title>AngularJS</title>
+        <link rel="stylesheet" href="lib/style.css" type="text/css" />
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+
+		<script  type="text/javascript" />
+		(function(){
+
+			var app = angular.module("ScopeExample",[]);
+
+
+			app.controller("ObjectHolderController", ['$rootScope', function($rootScope) {
+				//add an observable object within the controller scope
+				$rootScope.book = { name: 'SPA using AngularJS', price: 35, discount: 0 };
+			}]);
+
+			app.controller("BookController", ['$scope', function($scope) {
+				
+				//another observable object
+				$scope.amountToAdd = 10;
+
+				//declare functions in the scope to access them from within the view
+				$scope.addToPrice = function(){
+					$scope.book.price += parseInt($scope.amountToAdd);
+				};
+
+				function calculateDiscount(newValue, oldValue, scope) {
+					$scope.book.discount = newValue > 100 ? 10 : 0;
+				};
+
+				$scope.$watch('book.price', calculateDiscount);
+			}]);
+
+		})();
+		</script>
+
+		<div ng-controller="ObjectHolderController">
+			<h1>{{book.name}} - Price  € {{book.price}}, € {{book.discount}} discount!</h1>
+		</div>
+		<div ng-controller="BookController">
+			<!-- Scope data can be accessed using handlebar syntx -->
+			
+			<p>
+				<!-- use ng-model for two way binding -->
+				<input type="text" ng-model="amountToAdd" />
+
+				<!-- use ng-click to invoke the scope function when the button is clicked -->
+				<input type="button" ng-click="addToPrice()" value="Add {{amountToAdd}}€ to price"/>
+			</P>
+		</div>
+	</body>
+</html>
