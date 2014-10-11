@@ -16,7 +16,7 @@
 			app.controller("BookController", ['$scope', function($scope) {
 
 				//add an observable object within the controller scope
-				$scope.book = { name: 'SPA using AngularJS', price: 35 };
+				$scope.book = { name: 'SPA using AngularJS', price: 35, discount: 0 };
 
 				//another observable object
 				$scope.amountToAdd = 10;
@@ -25,6 +25,12 @@
 				$scope.addToPrice = function(){
 					$scope.book.price += parseInt($scope.amountToAdd);
 				};
+
+				function calculateDiscount(newValue, oldValue, scope) {
+					$scope.book.discount = newValue > 100 ? 10 : 0;
+				};
+
+				$scope.$watch('book.price', calculateDiscount);
 			}]);
 
 		})();
@@ -32,7 +38,7 @@
 
 		<div ng-controller="BookController">
 			<!-- Scope data can be accessed using handlebar syntx -->
-			<h1>{{book.name}} - Price  € {{book.price}}</h1>
+			<h1>{{book.name}} - Price  € {{book.price}}, € {{book.discount}} discount!</h1>
 			<p>
 				<!-- use ng-model for two way binding -->
 				<input type="text" ng-model="amountToAdd" />
