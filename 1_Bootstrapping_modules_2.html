@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="YourNameOfModule">
+	<head>
+		<title>AngularJS</title>
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+
+		<script  type="text/javascript" />
+			(function(){
+				'use strict';
+				//Chained syntax 
+				 var YourApp = angular.module("YourNameOfModule",[])
+								.directive('NameA', function(){ /* ... */ })
+								.directive('NameB', function(){ /* ... */ })
+								.directive('NameC', function(){ /* ... */ });
+			})();
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+	<head>
+		<title>AngularJS</title>
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+
+		<script  type="text/javascript" />
+			//app.js
+			(function() {
+			'use strict';
+				angular.module('MyApp', ['MyApp.services', 'MyApp.controllers', 'MyApp.directives']);   
+				angular.module('MyApp.directives', []); 
+				angular.module('MyApp.controllers', []); 
+				angular.module('MyApp.services', []); 
+			})();            
+
+			//Directives.js
+			(function() {
+			'use strict';
+			    angular.module('MyApp.directives')
+			    .directive(' YourDirective', function() { /* ... */ });
+			})();
+
+			//Controllers.js
+			(function() {
+			'use strict';
+			    angular.module('MyApp.controllers')
+			    .controller(' YourController', function() { /* ... */ });
+			})();
+
+			//Services.js
+			(function() {
+			'use strict';
+			    angular.module('MyApp.controllers')
+			    .factory (' YourService', function() { /* ... */ });
+			})();
+		</script>
+
+	</body>
+</html>

@@ -8,6 +8,14 @@
 
 		<script  type="text/javascript" />
 			var YourApp = angular.module("YourNameOfModule",[]);
+
+			//Imagine this was a seperated file: directives.js
+			(function(app){
+				'use strict';
+				app.directive('NameA', function(){ /* ... */ });
+				app.directive('NameB', function(){ /* ... */ });
+				app.directive('NameC', function(){ /* ... */ });
+			})(YourApp);
 		</script>
 
 	</body>
