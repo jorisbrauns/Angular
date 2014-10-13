@@ -23,10 +23,10 @@
 		</style>
 		<script  type="text/javascript">
 		    (function () {
-		        var app = angular.module("YourNameOfModule", [])
+		        window.application = angular.module("YourNameOfModule", [])
 
 		        //Curstom validation
-		        app.directive('ensureUnique', function () {
+		        window.application.directive('ensureUnique', function () {
 		            return {
 		                restrict: 'A',
 		                scope:{ list:'=' },

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" >
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS Bootstrapping Demo</title>
+    <script src="lib/angular.js" type="text/javascript"></script>
+</head>
+<body>
+
+  {{"Hallo wereld"}}
+
+<script>
+// on DOM ready find a DOM node and start an AngularJS app
+angular.element(document).ready(function () {
+
+	var application = angular.module('ApplicationName', []);
+
+    angular.bootstrap(document,['ApplicationName']);
+});
+</script>
+</body>

@@ -15,9 +15,9 @@
                 $routeProvider.
                     when('/route1', {
                         templateUrl: 'lib/views/book.html',
-                        controller: 'BookController'
+                        controller: 'BookController as ctrl'
                     })
-                    .when('/route2:id', {
+                    .when('/route2', {
                         template: function () {
                             return "{{message}}";
                         },
