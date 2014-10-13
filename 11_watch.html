@@ -9,11 +9,11 @@
 
 		<script  type="text/javascript" />
 		(function(){
-
-			var app = angular.module("ScopeExample",[]);
+		'use strict';
+			angular.module("ScopeExample",[])
 
 			//inject the $scope object to access it within a controller
-			app.controller("BookController", ['$scope', function($scope) {
+			.controller("BookController", ['$scope', function($scope) {
 
 				//add an observable object within the controller scope
 				$scope.book = { name: 'SPA using AngularJS', price: 35, discount: 0 };

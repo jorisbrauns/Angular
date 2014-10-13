@@ -8,10 +8,12 @@
 		<script src="lib/angular.js" type="text/javascript"></script>
 
 		<script  type="text/javascript">
-            var application = angular.module("YourNameOfModule",[])
+		(function(){
+		'use strict';
+            angular.module("YourNameOfModule",[])
             
 			//custom filter
-            application.filter('startsWithLetter', function () {
+            .filter('startsWithLetter', function () {
 			  return function (items, letter) {
 			    var filtered = [];
 			    var letterMatch = new RegExp(letter, 'i');
@@ -24,6 +26,7 @@
 			    return filtered;
 			  };
 			});
+		})();
 		</script>
 
 		<div ng-controller="BookController as ctrl">

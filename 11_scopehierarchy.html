@@ -9,16 +9,15 @@
 
 		<script  type="text/javascript" />
 		(function(){
+		'use strict';
+			angular.module("ScopeExample",[])
 
-			var app = angular.module("ScopeExample",[]);
-
-
-			app.controller("ObjectHolderController", ['$rootScope', function($rootScope) {
+			.controller("ObjectHolderController", ['$rootScope', function($rootScope) {
 				//add an observable object within the controller scope
 				$rootScope.book = { name: 'SPA using AngularJS', price: 35, discount: 0 };
-			}]);
+			}])
 
-			app.controller("BookController", ['$scope', function($scope) {
+			.controller("BookController", ['$scope', function($scope) {
 				
 				//another observable object
 				$scope.amountToAdd = 10;

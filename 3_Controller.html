@@ -11,10 +11,10 @@
 		(function(){
 
 			//Your bootstraping
-			var app = angular.module("YourNameOfModule",[]);
+			var app = angular.module("YourNameOfModule",[])
 
 			//Controllers, notice that controller is attached to (inside) our app.
-			app.controller("BookController", function(){
+			.controller("BookController", function(){
 				this.book = book;
 			});
 

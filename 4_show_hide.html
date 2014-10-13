@@ -8,9 +8,9 @@
 		<script src="lib/angular.js" type="text/javascript"></script>
 		<script  type="text/javascript" />
 		(function(){
-			var app = angular.module("YourNameOfModule",[]);
+			angular.module("YourNameOfModule",[])
 
-			app.controller("BookController", function(){
+			.controller("BookController", function(){
 				this.book = book;
 			});
 

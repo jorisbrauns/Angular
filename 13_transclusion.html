@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="directivesModule">
+	<head>
+		<title>AngularJS</title>
+        <link rel="stylesheet" href="lib/style.css" type="text/css" />
+	</head>
+	<body>
+		<script src="lib/angular.js" type="text/javascript"></script>
+
+		<script  type="text/javascript" />
+		(function(){
+		'use strict';
+			angular.module("directivesModule",[])
+
+			angular.module('directivesModule').directive('isolatedScopeWithTransclusion', function () {
+				return {
+				    restrict: 'E',
+				    transclude: true,
+				    replace: true,
+				    scope: {
+				        tasks: '='
+				    },
+				    controller: function ($scope) {
+				        $scope.addTask = function () {
+
+				            if (!$scope.tasks) $scope.tasks = [];
+
+				            $scope.add();
+
+				            $scope.tasks.push({
+				                title: $scope.title
+				            });
+
+				        };
+				    },
+				    template: '<div>Name: <input type="text" ng-model="title" /> ' +
+				              '<button ng-click="addTask()">Add Task</button>' +
+				              '<div class="taskContainer" ><br />' +
+				                 '<ng-transclude></ng-transclude>' +
+				              '</div></div>'
+				};
+			});
+
+		})();
+		</script>
+
+
+		<isolated-scope-with-transclusion tasks="tasks">
+		    <div ng-repeat="task in tasks track by $index">
+		         <strong>{{ task.title }}</strong>
+		    </div>
+		</isolated-scope-with-transclusion>
+
+	</body>
+</html>
