@@ -18,11 +18,12 @@
                         templateUrl: 'lib/views/book.html',
                         controller: 'BookController as ctrl'
                     })
-                    .when('/route2', {
+                    .when('/route2/:pageId', {
                         template: function () {
                             return "{{message}}";
                         },
                         controller: 'OtherController'
+                    })
                     })
                     .otherwise({
                         redirectTo: '/route1'
